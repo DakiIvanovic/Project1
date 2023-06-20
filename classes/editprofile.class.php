@@ -106,6 +106,8 @@ class EditProfile extends DbConnection {
             }
         }
 
+
+
         $updateQuery = "UPDATE users SET user_profile_picture = ?, user_full_name = ?, user_username = ? WHERE user_email = ?";
         $updatePrep = $this->conn->prepare($updateQuery);
         $updatePrep->bind_param('ssss', $destination, $fullName, $username, $_SESSION['user_email']);
