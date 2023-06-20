@@ -20,12 +20,11 @@ class EditProfile extends DbConnection {
         $password = $this->row['user_password'];
 
         $imageUrl = '';
-        if($this->row['user_profile_picture'] == '') {
-            $imageUrl = 'images/profile_picture_placeholder.jpg';
-        }
-        else {
-            $imageUrl = $this->row['user_profile_picture'];
-        }
+            if (isset($this->row['user_profile_picture'])) {
+                $imageUrl = $this->row['user_profile_picture'];
+            } else {
+                $imageUrl = 'images/profile_picture_placeholder.jpg';
+            }
         
         $form = "
         <link rel='stylesheet' href='assets/css/logged_in.css'>
@@ -35,7 +34,7 @@ class EditProfile extends DbConnection {
             <hr>
             <form action='' method='post' enctype='multipart/form-data'>
                 <label>Profile Picture</label>
-                <img width='500' src='$imageUrl'><br>
+                <img width='250' height='250' src='$imageUrl'><br>
                 
                 <input type='file' name='avatar'><br>
                 
@@ -107,15 +106,13 @@ class EditProfile extends DbConnection {
             }
         }
 
-
-
         $updateQuery = "UPDATE users SET user_profile_picture = ?, user_full_name = ?, user_username = ? WHERE user_email = ?";
         $updatePrep = $this->conn->prepare($updateQuery);
         $updatePrep->bind_param('ssss', $destination, $fullName, $username, $_SESSION['user_email']);
         $updateResult = $updatePrep->execute();
 
         if($updateResult) {
-            echo 'Successfully updated public information, please refresh your page.';
+            header("Location: ".$_SERVER['PHP_SELF']);
         }
         else {
             echo 'Error while trying to update public information, please try again';
