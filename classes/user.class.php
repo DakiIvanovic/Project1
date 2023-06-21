@@ -78,6 +78,34 @@ class User extends DbConnection {
         }
     }
 
+    public function sendMessage($name, $email, $message) {
+        // Provera da li korisnik postoji u bazi
+        $selectQuery = "SELECT user_email FROM users WHERE user_email = ?";
+        $prepQuery = $this->conn->prepare($selectQuery);
+        $prepQuery->bind_param('s', $email);
+        $prepQuery->execute();
+        $selectResult = $prepQuery->get_result();
+    
+        if ($selectResult->num_rows > 0) {
+            // Korisnik postoji, sačuvaj poruku u bazi
+            $insertQuery = "INSERT INTO contacts(name, email, message) VALUES(?, ?, ?)";
+            $prepQuery = $this->conn->prepare($insertQuery);
+            $prepQuery->bind_param('sss', $name, $email, $message);
+            $insertResult = $prepQuery->execute();
+    
+            if ($insertResult) {
+                echo 'Poruka je uspešno poslata.';
+            } else {
+                echo 'Greška prilikom slanja poruke.';
+            }
+        } else {
+            // Korisnik ne postoji, preusmeri ga na registracionu stranicu
+            header("Location: register.php");
+            exit;
+        }
+    }
+    
+
 }
 
 ?>
