@@ -1,7 +1,7 @@
 <link rel='stylesheet' href='assets/css/logged_in.css'>
 <?php
-include 'includes/autoloader.inc.php';
-include 'includes/header.php';
+require 'includes/autoloader.inc.php';
+require 'includes/header.php';
 Session::sessionStart();
 Session::userNotLogged();
 
