@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="assets/css/login.css">
 <?php
-include 'includes/autoloader.inc.php';
-include 'includes/header.php';
+require 'includes/autoloader.inc.php';
+require 'includes/header.php';
 // session_start();
 Session::sessionStart();
 
