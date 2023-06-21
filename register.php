@@ -1,7 +1,7 @@
 
 <?php
-include 'includes/autoloader.inc.php';
-include 'includes/header.php';
+require 'includes/autoloader.inc.php';
+require 'includes/header.php';
 Session::sessionStart();
 
 // check if user is not logged
