@@ -1,4 +1,4 @@
-<?php include 'includes/header.php'; ?>
+<?php require 'includes/header.php'; ?>
 <link rel="stylesheet" href="assets/css/header.css">
 
 <!DOCTYPE html>
