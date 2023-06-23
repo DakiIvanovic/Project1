@@ -2,12 +2,14 @@
 
 class User extends DbConnection {
 
-
     // registration form
     public $form;
 
     // login form
     public $loginForm;
+
+    //admin form
+    public $adminForm;
 
     public function defineRegistrationForm() {
         $this->form = "<form action='' method='post'>";
@@ -27,6 +29,17 @@ class User extends DbConnection {
 
         $this->loginForm .= "<input type='submit' name='login' value='Login'>";
         $this->loginForm .= "</form>";
+    }
+
+    public function defineAdminForm() {
+        $this->adminForm = "<form action='' method='post'>";
+        $this->adminForm .= "<input type='name' name='admin_name' placeholder='******'";
+        $this->adminForm .= "<input type='name' name='admin_username' placeholder='******'";
+        $this->adminForm .= "<input type='password' name='admin_password' placeholder='******'";
+        $this->adminForm .= "<input type='password' name='admin_repeat_password' placeholder='******'";
+
+        $this->adminForm .= "<input type='submit' name='admin_login' value='*****'";
+        $this->adminForm .= "</form>";
     }
 
     public function showUsers() {
@@ -89,9 +102,9 @@ class User extends DbConnection {
     }
     else {
         echo "Error sending message!";
-    }
+        exit;
+    }    
    }
-    
 }
 
 ?>
